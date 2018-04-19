@@ -1,5 +1,5 @@
 {
-	"name": "oliveris/CrystalHub",
+	"name": "oliveris/crystal-hub",
     "description": "A PHP-SDK for MyCrystalHub API",
     "keywords": ["crystal", "mycrystalhub"],
     "type": "package",
