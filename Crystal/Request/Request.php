@@ -32,7 +32,7 @@ class Request extends \Crystal\Base
     {
         try {
             $url = '/clients/get';
-            $response = $this->callCrystal("post",$url,$this->data);
+            $response = $this->callCrystal($url,$this->data);
             return $response;
         } catch (RequestException $e) {
             $response = $this->StatusCodeHandling($e);
