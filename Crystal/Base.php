@@ -1,3 +1,5 @@
+<?php
+
 namespace Crystal;
 
 use GuzzleHttp\Client;
@@ -6,5 +8,33 @@ use GuzzleHttp\Psr7\Request;
 
 class Base
 {
-    const API_URL = "https://crystal.test/api/v1";
+    const API_URL = "http://crystal.test/api/v1";
+
+    protected $client;
+
+    public function __construct()
+    {
+        $this->client = new \GuzzleHttp\Client();
+    }
+
+    protected function callCrystal($method, $request, $data)
+    {
+        try {
+            $url = self::API_URL . $request;
+            $response = $this->client->request($method,$url,$data);
+            return json_decode($response->getBody()->getContents());
+        } catch (RequestException $e) {
+            $response = $this->statusCodeHandling($e);
+            return $response;
+        }
+    }
+
+    protected function statusCodeHandling($e)
+    {
+        $response = [
+            "statuscode" => $e->getResponse()->getStatusCode(),
+            "error" => json_decode($e->getResponse()->getBody(true)->getContents())
+        ];
+        return $response;
+    }
 }
