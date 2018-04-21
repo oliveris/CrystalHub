@@ -14,11 +14,11 @@ composer require oliveris/crystal-hub
 <p>Below is a basic example of how to make a request to retrieve your companies clients.</p>
 
 ```
-use Crystal\Request;
-$crystal = new Request();
+use Crystal\Crystal;
 
-$crystal->setPkToken("{your_company_pk_token}");
-$crystal->setSkToken("{your_company_sk_token}");
+$crystal = new Crystal();
+$crystal->setPkToken('{your_company_pk_token}');
+$crystal->setSkToken('{your_company_sk_token}');
 
 echo "<pre>";
 print_r($crystal->getClients());
@@ -27,6 +27,6 @@ echo "</pre>";
 
 <p>For full API documentation please visit the link below.<br>(Documentation coming soon.)</p>
 
-## License
+### License
 
 ferdoc is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

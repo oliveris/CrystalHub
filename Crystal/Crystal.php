@@ -4,7 +4,7 @@ namespace Crystal;
 
 use GuzzleHttp\Exception\RequestException;
 
-class Request extends \Crystal\Base
+class Crystal extends \Crystal\Base
 {
     private $data = [];
 
