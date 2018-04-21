@@ -14,11 +14,11 @@ class Crystal extends \Crystal\Base
 
     private $client_id;
 
-    private $quote_id;
+    private $quote_ref;
 
-    private $job_id;
+    private $job_ref;
 
-    private $invoice_id;
+    private $invoice_ref;
 
     public function setPkToken($value = "")
     {
@@ -43,40 +43,40 @@ class Crystal extends \Crystal\Base
     public function setClientID($value = "")
     {
         if (!empty($value)) {
-            $this->client_id;
+            $this->client_id = $value;
             return $this->client_id;
         } else {
             throw new \Exception("The client id has not been set");
         }
     }
 
-    public function setQuoteID($value = "")
+    public function setQuoteRef($value = "")
     {
         if (!empty($value)) {
-            $this->quote_id;
-            return $this->quote_id;
+            $this->quote_ref = $value;
+            return $this->quote_ref;
         } else {
-            throw new \Exception("The quote id has not been set");
+            throw new \Exception("The quote ref has not been set");
         }
     }
 
-    public function setJobID($value = "")
+    public function setJobRef($value = "")
     {
         if (!empty($value)) {
-            $this->job_id;
-            return $this->job_id;
+            $this->job_ref = $value;
+            return $this->job_ref;
         } else {
-            throw new \Exception("The job id has not been set");
+            throw new \Exception("The job ref has not been set");
         }
     }
 
-    public function setInvoiceID($value = "")
+    public function setInvoiceRef($value = "")
     {
         if (!empty($value)) {
-            $this->invoice_id;
-            return $this->invoice_id;
+            $this->invoice_ref = $value;
+            return $this->invoice_ref;
         } else {
-            throw new \Exception("The invoice id has not been set");
+            throw new \Exception("The invoice ref has not been set");
         }
     }
 
@@ -90,13 +90,13 @@ class Crystal extends \Crystal\Base
                 $this->data['client_id'] = $this->client_id;
                 break;
             case 'singleQuote':
-                $this->data['quote_id'] = $this->quote_id;
+                $this->data['quote_ref'] = $this->quote_ref;
                 break;
             case 'singleJob':
-                $this->data['job_id'] = $this->job_id;
+                $this->data['job_ref'] = $this->job_ref;
                 break;
             case 'singleInvoice':
-                $this->data['invoice_id'] = $this->invoice_id;
+                $this->data['invoice_ref'] = $this->invoice_ref;
         }
     }
 
