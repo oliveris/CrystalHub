@@ -10,30 +10,30 @@ class Base
 {
     const API_URL = "http://staging.mycrystalhub.uk/api/v1";
 
-    protected $client;
+    protected static $client;
 
     public function __construct()
     {
-        $this->client = new \GuzzleHttp\Client();
+        self::$client = new \GuzzleHttp\Client();
     }
 
-    protected function callCrystal($request, $data = [])
+    protected static function callCrystal($request, $data = [])
     {
         try {
             $url = self::API_URL . $request;
-            $response = $this->client->post($url, [
+            $response = self::$client->post($url, [
                 'headers' => ['Content-Type' => 'application/json'],
                 'body'    => json_encode($data),
                 'debug'   => true
             ]);
             return json_decode($response->getBody()->getContents());
         } catch (RequestException $e) {
-            $response = $this->statusCodeHandling($e);
+            $response = self::statusCodeHandling($e);
             return $response;
         }
     }
 
-    protected function statusCodeHandling($e)
+    protected static function statusCodeHandling($e)
     {
         $response = [
             'statuscode' => $e->getResponse()->getStatusCode(),

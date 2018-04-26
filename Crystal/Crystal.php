@@ -1,205 +1,147 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Crystal;
 
 use GuzzleHttp\Exception\RequestException;
 
 class Crystal extends \Crystal\Base
 {
-    private $data = [];
+    private static $data = [];
 
-    private $pk_token;
-
-    private $sk_token;
-
-    private $client_id;
-
-    private $quote_ref;
-
-    private $job_ref;
-
-    private $invoice_ref;
-
-    public function setPkToken($value = "")
+    public static function setPkToken(string $value = "")
     {
         if (!empty($value)) {
-            $this->pk_token = $value;
-            return $this->pk_token;
-        } else {
-            throw new \Exception("The pk_token has not been set");
+            self::$data['pk_token'] = $value;
+            return self::$data['pk_token'];
         }
     }
 
-    public function setSkToken($value = "")
+    public static function setSkToken(string $value = "")
     {
         if (!empty($value)) {
-            $this->sk_token = $value;
-            return $this->sk_token;
-        } else {
-            throw new \Exception("The sk_token has not been set");
+            self::$data['sk_token'] = $value;
+            return self::$data['sk_token'];
         }
     }
 
-    public function setClientID($value = "")
+    public static function retrieveAllClients()
     {
-        if (!empty($value)) {
-            $this->client_id = $value;
-            return $this->client_id;
-        } else {
-            throw new \Exception("The client id has not been set");
-        }
-    }
-
-    public function setQuoteRef($value = "")
-    {
-        if (!empty($value)) {
-            $this->quote_ref = $value;
-            return $this->quote_ref;
-        } else {
-            throw new \Exception("The quote ref has not been set");
-        }
-    }
-
-    public function setJobRef($value = "")
-    {
-        if (!empty($value)) {
-            $this->job_ref = $value;
-            return $this->job_ref;
-        } else {
-            throw new \Exception("The job ref has not been set");
-        }
-    }
-
-    public function setInvoiceRef($value = "")
-    {
-        if (!empty($value)) {
-            $this->invoice_ref = $value;
-            return $this->invoice_ref;
-        } else {
-            throw new \Exception("The invoice ref has not been set");
-        }
-    }
-
-    public function composeData($type = null)
-    {
-        $this->data = [];
-        $this->data['pk_token'] = $this->pk_token;
-        $this->data['sk_token'] = $this->sk_token;
-        switch ($type) {
-            case 'singleClient':
-                $this->data['client_id'] = $this->client_id;
-                break;
-            case 'singleQuote':
-                $this->data['quote_ref'] = $this->quote_ref;
-                break;
-            case 'singleJob':
-                $this->data['job_ref'] = $this->job_ref;
-                break;
-            case 'singleInvoice':
-                $this->data['invoice_ref'] = $this->invoice_ref;
-        }
-    }
-
-    public function getClients()
-    {
-        $this->composeData();
         try {
             $url = '/clients/get';
-            $response = $this->callCrystal($url,$this->data);
+            $response = self::callCrystal($url, self::$data);
             return $response;
         } catch (RequestException $e) {
-            $response = $this->StatusCodeHandling($e);
+            $response = self::StatusCodeHandling($e);
             return $response;
         }
     }
 
-    public function getQuotes()
+    public static function retrieveAllQuotes()
     {
-        $this->composeData();
         try {
             $url = '/quotes/get';
-            $response = $this->callCrystal($url,$this->data);
+            $response = self::callCrystal($url, self::$data);
             return $response;
         } catch (RequestException $e) {
-            $response = $this->StatusCodeHandling($e);
+            $response = self::StatusCodeHandling($e);
             return $response;
         }
     }
 
-    public function getJobs()
+    public static function retrieveAllJobs()
     {
-        $this->composeData();
         try {
             $url = '/jobs/get';
-            $response = $this->callCrystal($url,$this->data);
+            $response = self::callCrystal($url, self::$data);
             return $response;
         } catch (RequestException $e) {
-            $response = $this->StatusCodeHandling($e);
+            $response = self::StatusCodeHandling($e);
             return $response;
         }
     }
 
-    public function getInvoices()
+    public static function retrieveAllInvoices()
     {
-        $this->composeData();
         try {
             $url = '/invoices/get';
-            $response = $this->callCrystal($url,$this->data);
+            $response = self::callCrystal($url, self::$data);
             return $response;
         } catch (RequestException $e) {
-            $response = $this->StatusCodeHandling($e);
+            $response = self::StatusCodeHandling($e);
             return $response;
         }
     }
 
-    public function getSingleClient()
+    public static function retrieveAllEmployees()
     {
-        $this->composeData('singleClient');
+        try {
+            $url = '/employees/get';
+            $response = self::callCrystal($url, self::$data);
+            return $response;
+        } catch (RequestException $e) {
+            $response = self::StatusCodeHandling($e);
+            return $response;
+        }
+    }
+
+    public static function retrieveClient(integer $client_id)
+    {
         try {
             $url = '/clients/get-single';
-            $response = $this->callCrystal($url,$this->data);
+            $response = self::callCrystal($url, self::$data);
             return $response;
         } catch (RequestException $e) {
-            $response = $this->StatusCodeHandling($e);
+            $response = self::StatusCodeHandling($e);
             return $response;
         }
     }
 
-    public function getSingleQuote()
+    public static function retrieveQuote(string $quote_ref)
     {
-        $this->composeData('singleQuote');
         try {
             $url = '/quotes/get-single';
-            $response = $this->callCrystal($url,$this->data);
+            $response = self::callCrystal($url, self::$data);
             return $response;
         } catch (RequestException $e) {
-            $response = $this->StatusCodeHandling($e);
+            $response = self::StatusCodeHandling($e);
             return $response;
         }
     }
 
-    public function getSingleJob()
+    public static function retrieveJob(string $job_ref)
     {
-        $this->composeData('singleJob');
         try {
             $url = '/jobs/get-single';
-            $response = $this->callCrystal($url,$this->data);
+            $response = self::callCrystal($url, self::$data);
             return $response;
         } catch (RequestException $e) {
-            $response = $this->StatusCodeHandling($e);
+            $response = self::StatusCodeHandling($e);
             return $response;
         }
     }
 
-    public function getSingleInvoice()
+    public static function retrieveInvoice(string $invoice_ref)
     {
-        $this->composeData('singleInvoice');
         try {
             $url = '/invoices/get-single';
-            $response = $this->callCrystal($url,$this->data);
+            $response = self::callCrystal($url, self::$data);
             return $response;
         } catch (RequestException $e) {
-            $response = $this->StatusCodeHandling($e);
+            $response = self::StatusCodeHandling($e);
+            return $response;
+        }
+    }
+
+    public static function retrieveEmployee(integer $employee_id)
+    {
+        try {
+            $url = '/employees/get-single';
+            $response = self::callCrystal($url, self::$data);
+            return $response;
+        } catch (RequestException $e) {
+            $response = self::StatusCodeHandling($e);
             return $response;
         }
     }
