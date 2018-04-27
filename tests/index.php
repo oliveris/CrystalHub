@@ -9,5 +9,6 @@ $crystal->setPkToken('{your_company_pk_token}');
 $crystal->setSkToken('{your_company_sk_token}');
 
 echo "<pre>";
-print_r($crystal->getClients());
+print_r($crystal->retrieveAllClients());
+//print_r($crystal->retrieveClient(1));
 echo "</pre>";

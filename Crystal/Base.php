@@ -12,9 +12,12 @@ class Base
 
     protected $client;
 
+    public $data = [];
+
     public function __construct()
     {
         $this->client = new \GuzzleHttp\Client();
+        $this->data = [];
     }
 
     protected function callCrystal($request, $data = [])
@@ -24,7 +27,7 @@ class Base
             $response = $this->client->post($url, [
                 'headers' => ['Content-Type' => 'application/json'],
                 'body'    => json_encode($data),
-                'debug'   => true
+                'debug'   => false
             ]);
             return json_decode($response->getBody()->getContents());
         } catch (RequestException $e) {
