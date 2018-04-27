@@ -8,8 +8,7 @@ use GuzzleHttp\Psr7\Request;
 
 class Base
 {
-//    const API_URL = "http://staging.mycrystalhub.uk/api/v1";
-    const API_URL = "http://crystal.test/api/v1";
+    const API_URL = "http://staging.mycrystalhub.uk/api/v1";
 
     protected $client;
 
