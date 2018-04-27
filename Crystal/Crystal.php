@@ -1,147 +1,252 @@
 <?php
 
-declare(strict_types = 1);
-
 namespace Crystal;
 
 use GuzzleHttp\Exception\RequestException;
 
 class Crystal extends \Crystal\Base
 {
-    private static $data = [];
-
-    public static function setPkToken(string $value = "")
+    /**
+     * Method setPkToken()
+     * ------------------------------
+     *
+     * Sets your companies public key token
+     *
+     * @param string $value
+     * @return mixed
+     */
+    public function setPkToken($value = "")
     {
         if (!empty($value)) {
-            self::$data['pk_token'] = $value;
-            return self::$data['pk_token'];
+            $this->data['pk_token'] = $value;
+            return $this->data['pk_token'];
         }
     }
 
-    public static function setSkToken(string $value = "")
+    /**
+     * Method setSkToken()
+     * ------------------------------
+     *
+     * Sets your companies secret key token
+     *
+     * @param string $value
+     * @return mixed
+     */
+    public function setSkToken($value = "")
     {
         if (!empty($value)) {
-            self::$data['sk_token'] = $value;
-            return self::$data['sk_token'];
+            $this->data['sk_token'] = $value;
+            return $this->data['sk_token'];
         }
     }
 
-    public static function retrieveAllClients()
+
+    /**
+     * Method retrieveAllClients()
+     * ------------------------------
+     *
+     * Retrieves all of your companies clients
+     *
+     * @return array|mixed|\Psr\Http\Message\ResponseInterface
+     */
+    public function retrieveAllClients()
     {
         try {
             $url = '/clients/get';
-            $response = self::callCrystal($url, self::$data);
+            $response = $this->callCrystal($url, $this->data);
             return $response;
         } catch (RequestException $e) {
-            $response = self::StatusCodeHandling($e);
+            $response = $this->StatusCodeHandling($e);
             return $response;
         }
     }
 
-    public static function retrieveAllQuotes()
+    /**
+     * Method retrieveAllQuotes()
+     * ------------------------------
+     *
+     * Retrieves all of your companies quotes
+     *
+     * @return array|mixed|\Psr\Http\Message\ResponseInterface
+     */
+    public function retrieveAllQuotes()
     {
         try {
             $url = '/quotes/get';
-            $response = self::callCrystal($url, self::$data);
+            $response = $this->callCrystal($url, $this->data);
             return $response;
         } catch (RequestException $e) {
-            $response = self::StatusCodeHandling($e);
+            $response = $this->StatusCodeHandling($e);
             return $response;
         }
     }
 
-    public static function retrieveAllJobs()
+    /**
+     * Method retrieveAllJobs()
+     * ------------------------------
+     *
+     * Retrieves all of your companies jobs
+     *
+     * @return array|mixed|\Psr\Http\Message\ResponseInterface
+     */
+    public function retrieveAllJobs()
     {
         try {
             $url = '/jobs/get';
-            $response = self::callCrystal($url, self::$data);
+            $response = $this->callCrystal($url, $this->data);
             return $response;
         } catch (RequestException $e) {
-            $response = self::StatusCodeHandling($e);
+            $response = $this->StatusCodeHandling($e);
             return $response;
         }
     }
 
-    public static function retrieveAllInvoices()
+    /**
+     * Method retrieveAllInvoices()
+     * ------------------------------
+     *
+     * Retrieves all of your companies invoices
+     *
+     * @return array|mixed|\Psr\Http\Message\ResponseInterface
+     */
+    public function retrieveAllInvoices()
     {
         try {
             $url = '/invoices/get';
-            $response = self::callCrystal($url, self::$data);
+            $response = $this->callCrystal($url, $this->data);
             return $response;
         } catch (RequestException $e) {
-            $response = self::StatusCodeHandling($e);
+            $response = $this->StatusCodeHandling($e);
             return $response;
         }
     }
 
-    public static function retrieveAllEmployees()
+    /**
+     * Method retrieveAllEmployees()
+     * ------------------------------
+     *
+     * Retrieves all of your companies invoices
+     *
+     * @return array|mixed|\Psr\Http\Message\ResponseInterface
+     */
+    public function retrieveAllEmployees()
     {
         try {
             $url = '/employees/get';
-            $response = self::callCrystal($url, self::$data);
+            $response = $this->callCrystal($url, $this->data);
             return $response;
         } catch (RequestException $e) {
-            $response = self::StatusCodeHandling($e);
+            $response = $this->StatusCodeHandling($e);
             return $response;
         }
     }
 
-    public static function retrieveClient(integer $client_id)
+    /**
+     * Method retrieveClient()
+     * ------------------------------
+     *
+     * Retrieves a single client by id eg, 1
+     *
+     * @param $client_id
+     * @return array|mixed|\Psr\Http\Message\ResponseInterface
+     */
+    public function retrieveClient($client_id)
     {
         try {
+            $this->data['client_id'] = $client_id;
             $url = '/clients/get-single';
-            $response = self::callCrystal($url, self::$data);
+            $response = $this->callCrystal($url, $this->data);
             return $response;
         } catch (RequestException $e) {
-            $response = self::StatusCodeHandling($e);
+            $response = $this->StatusCodeHandling($e);
             return $response;
         }
     }
 
-    public static function retrieveQuote(string $quote_ref)
+    /**
+     * Method retrieveQuote()
+     * ------------------------------
+     *
+     * Retrieves a single quote by ref eg, 'QU1/1'
+     *
+     * @param $quote_ref
+     * @return array|mixed|\Psr\Http\Message\ResponseInterface
+     */
+    public function retrieveQuote($quote_ref)
     {
         try {
+            $this->data['quote_ref'] = $quote_ref;
             $url = '/quotes/get-single';
-            $response = self::callCrystal($url, self::$data);
+            $response = $this->callCrystal($url, $this->data);
             return $response;
         } catch (RequestException $e) {
-            $response = self::StatusCodeHandling($e);
+            $response = $this->StatusCodeHandling($e);
             return $response;
         }
     }
 
-    public static function retrieveJob(string $job_ref)
+    /**
+     * Method retrieveJob()
+     * ------------------------------
+     *
+     * Retrieves a single job by ref eg, 'JO1/1'
+     *
+     * @param $job_ref
+     * @return array|mixed|\Psr\Http\Message\ResponseInterface
+     */
+    public function retrieveJob($job_ref)
     {
         try {
+            $this->data['job_ref'] = $job_ref;
             $url = '/jobs/get-single';
-            $response = self::callCrystal($url, self::$data);
+            $response = $this->callCrystal($url, $this->data);
             return $response;
         } catch (RequestException $e) {
-            $response = self::StatusCodeHandling($e);
+            $response = $this->StatusCodeHandling($e);
             return $response;
         }
     }
 
-    public static function retrieveInvoice(string $invoice_ref)
+    /**
+     * Method retrieveInvoice()
+     * ------------------------------
+     *
+     * Retrieves a single invoice by ref eg, 'JO1/1'
+     *
+     * @param $invoice_ref
+     * @return array|mixed|\Psr\Http\Message\ResponseInterface
+     */
+    public function retrieveInvoice($invoice_ref)
     {
         try {
+            $this->data['invoice_ref'] = $invoice_ref;
             $url = '/invoices/get-single';
-            $response = self::callCrystal($url, self::$data);
+            $response = $this->callCrystal($url, $this->data);
             return $response;
         } catch (RequestException $e) {
-            $response = self::StatusCodeHandling($e);
+            $response = $this->StatusCodeHandling($e);
             return $response;
         }
     }
 
-    public static function retrieveEmployee(integer $employee_id)
+    /**
+     * Method retrieveEmployee
+     * ------------------------------
+     *
+     * Retrieves a single employee by id eg, 1
+     *
+     * @param $employee_id
+     * @return array|mixed|\Psr\Http\Message\ResponseInterface
+     */
+    public function retrieveEmployee($employee_id)
     {
         try {
+            $this->data['employee_id'] = $employee_id;
             $url = '/employees/get-single';
-            $response = self::callCrystal($url, self::$data);
+            $response = $this->callCrystal($url, $this->data);
             return $response;
         } catch (RequestException $e) {
-            $response = self::StatusCodeHandling($e);
+            $response = $this->StatusCodeHandling($e);
             return $response;
         }
     }

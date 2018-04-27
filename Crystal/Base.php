@@ -8,32 +8,36 @@ use GuzzleHttp\Psr7\Request;
 
 class Base
 {
-    const API_URL = "http://staging.mycrystalhub.uk/api/v1";
+//    const API_URL = "http://staging.mycrystalhub.uk/api/v1";
+    const API_URL = "http://crystal.test/api/v1";
 
-    protected static $client;
+    protected $client;
+
+    public $data = [];
 
     public function __construct()
     {
-        self::$client = new \GuzzleHttp\Client();
+        $this->client = new \GuzzleHttp\Client();
+        $this->data = [];
     }
 
-    protected static function callCrystal($request, $data = [])
+    protected function callCrystal($request, $data = [])
     {
         try {
             $url = self::API_URL . $request;
-            $response = self::$client->post($url, [
+            $response = $this->client->post($url, [
                 'headers' => ['Content-Type' => 'application/json'],
                 'body'    => json_encode($data),
-                'debug'   => true
+                'debug'   => false
             ]);
             return json_decode($response->getBody()->getContents());
         } catch (RequestException $e) {
-            $response = self::statusCodeHandling($e);
+            $response = $this->statusCodeHandling($e);
             return $response;
         }
     }
 
-    protected static function statusCodeHandling($e)
+    protected function statusCodeHandling($e)
     {
         $response = [
             'statuscode' => $e->getResponse()->getStatusCode(),
