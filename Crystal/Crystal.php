@@ -7,6 +7,26 @@ use GuzzleHttp\Exception\RequestException;
 class Crystal extends \Crystal\Base
 {
     /**
+     * Method setApiEnvironment()
+     * ------------------------------
+     *
+     * Sets your companies api environment
+     * By default if not set is to www which is production API data
+     * Other environments can be:
+     * - staging
+     *
+     * @param string $value
+     * @return mixed
+     */
+    public function setApiEnvironment($value = "")
+    {
+        if (!empty($value)) {
+            $this->data['environment'] = $value;
+            return $this->data['environment'];
+        }
+    }
+
+    /**
      * Method setPkToken()
      * ------------------------------
      *

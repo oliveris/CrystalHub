@@ -18,6 +18,14 @@ use Crystal\Crystal;
 
 ## Examples
 
+### Setting your API environment
+<p>Below shows an example if you need to access a different environments API, for example, staging.</p>
+
+```
+$crystal = new Crystal();
+$crystal->setApiEnvironment('staging');
+```
+
 ### Retrieving all of the companies clients
 <p>Below is a basic example of how to make a request to retrieve your companies clients.</p>
 
@@ -135,4 +143,4 @@ $crystal->retrieveEmployee($employee_id);
 
 ### License
 
-ferdoc is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+CrystalHub is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

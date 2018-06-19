@@ -8,22 +8,26 @@ use GuzzleHttp\Psr7\Request;
 
 class Base
 {
-    const API_URL = "http://staging.mycrystalhub.uk/api/v1";
+    const API_PROTOCOL = "https://";
+    const API_URL = ".mycrystalhub.uk/api/v1";
 
     protected $client;
 
+    public $environment;
     public $data = [];
 
     public function __construct()
     {
         $this->client = new \GuzzleHttp\Client();
         $this->data = [];
+        // By default in production which is www
+        $this->data['environment'] = 'www';
     }
 
     protected function callCrystal($request, $data = [])
     {
         try {
-            $url = self::API_URL . $request;
+            $url = self::API_PROTOCOL . $this->data['environment'] . self::API_URL . $request;
             $response = $this->client->post($url, [
                 'headers' => ['Content-Type' => 'application/json'],
                 'body'    => json_encode($data),
