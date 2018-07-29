@@ -1,4 +1,4 @@
-# CrystalHub
+# MyCrystalHub SDK
 ## PHP-SDK for MyCrystalHub API
 
 <p>Used to access your companies data.</p>
@@ -19,7 +19,7 @@ use Crystal\Crystal;
 ## Examples
 
 ### Setting your API environment
-<p>Below shows an example if you need to access a different environments API, for example, staging.</p>
+<p>Below shows an example if you need to access a different environments API, for example, staging. By default it is set on production.</p>
 
 ```
 $crystal = new Crystal();
@@ -143,4 +143,4 @@ $crystal->retrieveEmployee($employee_id);
 
 ### License
 
-CrystalHub is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+MyCrystalHub is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
