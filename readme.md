@@ -7,7 +7,7 @@
 <p>Pull in the composer package by running the command below:</p>
 
 ```
-composer require oliveris/crystal-hub
+composer require oliveris/sdk-mycrystalhub
 ```
 
 <p>Import the Crystal namespace into the class (autoloading)</p>
